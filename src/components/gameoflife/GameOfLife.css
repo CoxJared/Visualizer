@@ -1,0 +1,80 @@
+.display-window {
+  width:1300px;
+  /* border:1px solid blue; */
+  height:700px;
+}
+
+.row{
+  height:15px;
+  width:1300px;
+  display: flex;
+  /* border:1px solid red; */
+}
+.element {
+  height:13px;
+  width:13px;
+  margin:1px;
+  /* border:1px solid rgb(15, 57, 10); */
+  background-color:rgb(46, 46, 57);
+  transition:.2s;
+}
+
+.alive{
+  background-color:rgb(14, 140, 194);
+}
+
+.controls{
+  /* border:1px solid red; */
+  display: flex;
+  margin-bottom: 10px;
+}
+.generation-container{
+  height:80px;
+  width:200px;
+  /* border:1px solid blue; */
+}
+.generation-container h1{
+  color:#fff;
+  position: relative;
+  font-size: 60px;
+  text-align: right;
+  width:100px;
+  margin: 0 auto;
+}
+.game-oflife-start-button{
+  background-color:rgb(48, 184, 36);
+  width:150px;
+  height:70px;
+  margin:0 10px;
+  border-radius: 12px;
+}
+
+.game-oflife-start-button h1 {
+  color:#fff;
+  font-weight: 100;
+  text-align: center;
+  position: relative;
+  padding-top:15px;
+  font-size: 30px;
+}
+.game-oflife-restart-button{
+  background-color:rgb(175, 41, 41);
+  width:150px;
+  height:70px;
+  margin:0 10px;
+  border-radius: 12px;
+  opacity: 0.7;
+  transition:.3s;
+}
+.game-oflife-restart-button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.game-oflife-restart-button h1 {
+  color:#fff;
+  font-weight: 100;
+  text-align: center;
+  position: relative;
+  padding-top:15px;
+  font-size: 30px;
+}
