@@ -4,6 +4,7 @@ export class SideBar extends Component {
   render() {
     return (
       <div className="side-bar">
+        
         <div className="side-bar-option button" style={{backgroundColor:'rgb(69,154,120)'}}>
           <h1>Game of Life</h1>
         </div>
@@ -17,6 +18,7 @@ export class SideBar extends Component {
           <h1>Sorting</h1>
         </div>
         
+        <h1 className="side-bar-heading">Projects</h1>
       </div>
     )
   }

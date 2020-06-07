@@ -20,13 +20,18 @@
 }
 
 .alive{
-  background-color:rgb(14, 140, 194);
+  background-color:rgb(179, 14, 194);
 }
 
 .controls{
   /* border:1px solid red; */
+  width:600px;
+  height:70px;
   display: flex;
   margin-bottom: 10px;
+  background-color: rgb(29, 31, 32);
+  padding:10px;
+  border-radius: 20px;
 }
 .generation-container{
   height:80px;
