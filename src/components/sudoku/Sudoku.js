@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './Sudoko.css'
 
+const SPEED_FACTOR = 300
+
 function removeA(arr) {
   var what, a = arguments, L = a.length, ax;
   while (L > 1 && arr.length) {
@@ -62,76 +64,181 @@ export class Sudoku extends Component {
     let board = setupEmptyBoard()
     board = setupInitialPosition(board)
    
-    this.state = {board: board}
+    this.state = {
+      board: board,
+      rowsToCheck:[0,1,2,3,4,5,6,7,8],
+      columnsToCheck:[0,1,2,3,4,5,6,7,8],
+      boxesToCheck:[]
+    }
   }
 
   lightUpRow = (row) => {
     document.getElementById(`visualization-row${row}`).style.backgroundColor='rgb(0, 174, 255)';
     setTimeout( function(){
       document.getElementById(`visualization-row${row}`).style.backgroundColor='rgba(0, 174, 255,0)';
-    }, 400)
+    }, SPEED_FACTOR)
   }
   lightUpColumn = (row) => {
     document.getElementById(`visualization-column${row}`).style.backgroundColor='rgb(0, 174, 255)';
     setTimeout( function(){
       document.getElementById(`visualization-column${row}`).style.backgroundColor='rgba(0, 174, 255,0)';
-    }, 400)
+    }, SPEED_FACTOR)
   }
-
-  eliminateOptionsFromRows = () => {
-    var i = 0
-    var interval = setInterval(() => {
-      this.lightUpRow(i)
-      for(let x = 0; x < 9; x ++){
-        if(this.state.board[i][x].value !== null){
-          for(let a =0; a < 9; a++) {
-            removeA(this.state.board[i][a]['options'], this.state.board[i][x].value);
-            this.setState({done:"e"})
-          }
+  lightUpBox = (box) => {
+    document.getElementById(`visualization-box${box}`).style.backgroundColor='rgb(0, 174, 255)';
+    setTimeout( function(){
+      document.getElementById(`visualization-box${box}`).style.backgroundColor='rgba(0, 174, 255,0)';
+    }, SPEED_FACTOR)
+  }
+  lightUpElement = (row, column, color ='rgba(255, 0, 155,.5)') => {
+    console.log(row, column)
+    document.getElementById(`visualization-element${row}${column}`).style.backgroundColor=color;
+    setTimeout( function(){
+      document.getElementById(`visualization-element${row}${column}`).style.backgroundColor='rgba(0, 174, 255,0)';
+    }, SPEED_FACTOR)
+  }
+  CheckRow = (rowNum) => {
+    this.lightUpRow(rowNum)
+    for(let x = 0; x < 9; x ++){
+      if(this.state.board[rowNum][x].value !== null){
+        for(let a =0; a < 9; a++) {
+          removeA(this.state.board[rowNum][a]['options'], this.state.board[rowNum][x].value);
+          this.setState({done:"e"})
         }
       }
+    }
+  }
+  eliminateOptionsFromRows = () => {
+    let i = 0
+    let interval = setInterval(() => {
+      this.CheckRow(this.state.rowsToCheck[i])
       i++
-      if(i>8){
+      if(i>=this.state.rowsToCheck.length){
         clearInterval(interval);
       }
-    }, 500);
+    }, SPEED_FACTOR);
   }
 
+ checkColumn = (columnNum) =>{
+  this.lightUpColumn(columnNum)
+  for(let x = 0; x < 9; x ++){
+    if(this.state.board[x][columnNum].value !== null){
+      for(let a =0; a < 9; a++) {
+        removeA(this.state.board[a][columnNum]['options'], this.state.board[x][columnNum].value);
+        this.setState({done:"e"})
+      }
+    }
+  }
+ }
+
   eliminateOptionsFromColumns = () => {
+    let i = 0
+    let interval2 = setInterval(() => {
+      this.checkColumn(this.state.columnsToCheck[i])
+      i++
+      if(i>=this.state.columnsToCheck.length){
+        clearInterval(interval2);
+      }
+    }, SPEED_FACTOR);
+  }
+
+  eliminateOptionsFromBoxes = () => {
     var i = 0
-    var interval2 = setInterval(() => {
-      this.lightUpColumn(i)
-      for(let x = 0; x < 9; x ++){
-        if(this.state.board[x][i].value !== null){
-          for(let a =0; a < 9; a++) {
-            removeA(this.state.board[a][i]['options'], this.state.board[x][i].value);
-            this.setState({done:"e"})
+    var x = 0
+    var y = 0
+    var interval3 = setInterval(() => {
+      this.lightUpBox(i)
+      for(let a = 0; a < 3; a++){
+        for(let b = 0; b < 3; b++){
+          if(this.state.board[(x*3)+a][(y*3)+b].value !== null){
+
+            for( let a2 = 0; a2 < 3; a2++){
+              for(let b2 = 0; b2 < 3; b2++){
+                removeA(this.state.board[(x*3)+a2][(y*3)+b2]['options'], this.state.board[(x*3)+a][(y*3)+b].value);
+                this.setState({done:"e"})
+              }
+            }
           }
         }
       }
       i++
-      if(i>8){
-        clearInterval(interval2);
+      y = (y+1)%3
+      if(y==0){
+        x++
       }
-    }, 500);
+      if(i>8){
+        clearInterval(interval3);
+      }
+    }, SPEED_FACTOR);
+  }
+
+  checkLastOption = () =>{
+    let rowsToCheck = []
+    let columnsToCheck = []
+    let boxesToCheck = []
+
+    let i = 0
+    let interval = setInterval(() => {
+        let row = Math.floor(i / 9)
+        let column = i % 9
+        if(this.state.board[row][column].value == null 
+          && this.state.board[row][column].options.length === 1 ){
+            this.lightUpElement(row,column, 'rgb(0, 255,0)')
+          // for(let a =0; a < 9; a++) {
+            let board  = this.state.board
+            board[row][column].value = this.state.board[row][column].options[0]
+            if(!rowsToCheck.includes(row)){
+            rowsToCheck.push(row)
+            }
+            if(!columnsToCheck.includes(column)){
+            columnsToCheck.push(column)
+            }
+            this.setState({board:board})
+          // }
+        } else{
+          this.lightUpElement(row,column)
+        }
+      i++
+      if(i>80){
+        clearInterval(interval);
+      }
+    }, SPEED_FACTOR / 9);
+
+    this.setState({columnsToCheck:columnsToCheck,
+      rowsToCheck: rowsToCheck})
   }
 
   solve = () => {
+    this.solutionRun()
+    var inter = setInterval(() =>{
+      this.solutionRun()
+    },((this.state.columnsToCheck.length + this.state.rowsToCheck.length) * SPEED_FACTOR) + SPEED_FACTOR *18)
+  }
+
+  solutionRun = () => {
     this.eliminateOptionsFromRows()
     setTimeout(() => {
       this.eliminateOptionsFromColumns()
-    },5000)
-    
+    },this.state.rowsToCheck.length * SPEED_FACTOR)
+    setTimeout(() => {
+      this.eliminateOptionsFromBoxes()
+    },(this.state.columnsToCheck.length + this.state.rowsToCheck.length) * SPEED_FACTOR)
+    setTimeout(() => {
+      this.checkLastOption()
+    },((this.state.columnsToCheck.length + this.state.rowsToCheck.length) * SPEED_FACTOR) + SPEED_FACTOR * 9)
   }
 
   render() {
-
     let count = [0, 1, 2, 3, 4, 5, 6, 7, 8] 
     let visualizationElements = 
     <div className="visualization-elements">
       <div className="visualization-rows">
         {count.map(row => (
-          <div id={`visualization-row${row}`}/>
+          <div id={`visualization-row${row}`}>
+            {count.map(col =>(
+              <div id={`visualization-element${row}${col}`}/>
+            ))}
+            </div>
         ))}
       </div>
       <div className="visualization-columns">
@@ -141,14 +248,12 @@ export class Sudoku extends Component {
       </div>
       <div className="visualization-boxes">
         {count.map(box => (
-          <div id={`visualization-boxes${box}`}/>
+          <div id={`visualization-box${box}`}/>
         ))}
       </div>
     </div>
 
-    console.log(this.state.board)
     let boardElements = convertPositionToElement(this.state.board)
-    console.log('done')
 
     return (
       <div className="sudoku-container">

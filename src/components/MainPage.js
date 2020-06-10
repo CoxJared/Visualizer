@@ -14,7 +14,7 @@ export class MainPage extends Component {
   constructor() {
     super() 
     this.state = {
-      algorithmDisplayed: <GameOfLife/>
+      algorithmDisplayed: <Sudoku/>
     }
   }
 

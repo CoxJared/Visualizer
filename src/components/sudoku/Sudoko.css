@@ -65,8 +65,16 @@
     width:648px;
     height: 72px;
     position: relative;
+    display:flex;
     opacity:.3;
-    transition:.2s;
+    transition:.05s;
+  }
+  .visualization-rows div div{
+    width:72px;
+    height: 72px;
+    position: relative;
+    opacity:1;
+    transition:.05s;
   }
 
 .visualization-columns{
@@ -83,7 +91,7 @@
   height: 648px;
   position: relative;
   opacity:.3;
-  transition:.2s;
+  transition:.05s;
 }
 
 .visualization-boxes{
@@ -101,7 +109,8 @@
   height: 212px;
   position: relative;
   border: 2px solid rgb(0, 174, 255);
-  transition:.2s;
+  opacity:.3;
+  transition:.05s;
 }
 
 .sudoku-controls{
