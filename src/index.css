@@ -20,10 +20,10 @@ code {
 }
 
 .button {
-  opacity: .7;
+  opacity: 1;
   transition:.3s
 }
 .button:hover {
-  opacity:1;
+  opacity:.8;
   cursor: pointer;
 }

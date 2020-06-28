@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import SideBar from './SideBar';
 import GameOfLife from './gameoflife/GameOfLife';
 import Sorting from './sorting/Sorting';
-import Sudoku from './sudoku/Sudoku';
+import Sudoku from './sudoku/Sudoku.jsx';
 
 const algorithms = {
   'game-of-life': <GameOfLife />,
