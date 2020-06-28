@@ -1,0 +1,61 @@
+.sudoku-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color:rgb(235, 235, 235);
+  padding:20px;
+  border-radius:30px;
+}
+
+.sudoku-board {
+  width:648px;
+  height:648px;
+  margin:0px 30px 0px 0px;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius:20px;
+  display: flex;
+  flex-wrap: wrap;
+  padding:10px;
+}
+
+.sudoku-element{
+  position: relative;
+  width:60px;
+  height:60px;
+  margin:6px;
+  border-radius: 10px;
+  background-color: rgb(233, 233, 233);
+  display: flex;
+  flex-wrap: wrap;
+  /* padding:4px; */
+  overflow: hidden;
+  transition:.5s ease-in-out;
+}
+
+.sudoku-element div{
+  position: relative;
+  width:16px;
+  height: 16px;
+  margin:2px;
+  border-radius: 6px;
+  opacity:.7;
+  transition:.5s ease-in-out;
+}
+/* .sudoku-option-1{
+  background-color: rgb(33, 218, 202);}
+.sudoku-option-2{
+  background-color: rgb(38, 255, 92);}
+.sudoku-option-3{
+  background-color: rgb(38, 168, 255);}
+.sudoku-option-4{
+  background-color: rgb(194, 38, 255);}
+.sudoku-option-5{
+  background-color: rgb(255, 125, 38);}
+.sudoku-option-6{
+  background-color: rgb(255, 38, 121);}
+.sudoku-option-7{
+  background-color: rgb(255, 38, 67);}
+.sudoku-option-8{
+  background-color: rgb(251, 255, 38);}
+.sudoku-option-9{
+  background-color: rgb(38, 42, 255);} */
