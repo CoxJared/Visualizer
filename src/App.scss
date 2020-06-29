@@ -1,9 +1,12 @@
+$base-color: rgb(245, 245, 247);
+
+
 .main-page {
   position: absolute;
   width: calc(100vw - 40px);
   height: calc(100vh - 300px);
   padding: 150px 20px;
-  background-color: rgb(245, 245, 247); 
+  background-color: $base-color; 
   display: flex;
   overflow: hidden;
 }

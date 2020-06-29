@@ -57,7 +57,7 @@ function eliminateRowOptions(board, rowNum) {
   for(let column = 0; column < 9; column++) {
     if(board[column][rowNum].value !== null) {
       for(let i = 0; i < 9; i++){
-        removeA(board[column][i].options, board[column][rowNum].value);
+        removeA(board[i][rowNum].options, board[column][rowNum].value);
       }
     }
   }
@@ -85,6 +85,16 @@ function setupInitialPosition(board) {
   for(let i =0; i< 9; i++){
     for (let x = 0; x< 9; x++) {
       board[i][x]['value']=values[i*9+x] !== 0? values[i*9+x] : null
+    }
+  }
+}
+
+function checkOnlyOption(board) {
+  for (let column = 0; column < 9; column++) {
+    for(let row = 0; row < 9; row++) {
+      if(board[column][row].value === null && board[column][row].options.length === 1) {
+        board[column][row].value = board[column][row].options[0];
+      }
     }
   }
 }
@@ -154,7 +164,6 @@ export class Sudoku extends Component {
   }
 
   singleSolutionRun() {
-
     //eliminate from columns
     for (let column = 0; column < 9; column++) {
       eliminatesColumnOptions(this.state.board, column);
@@ -166,9 +175,11 @@ export class Sudoku extends Component {
     }
 
     //eliminate from boxes
-    for (let column = 0; column < 9; column++) {
-      eliminateBoxOptions(this.state.board, 5);
+    for (let box = 0; box < 9; box++) {
+      eliminateBoxOptions(this.state.board, box);
     }
+
+    checkOnlyOption(this.state.board);
 
     this.updateBoardElementsState();
   }
@@ -187,6 +198,9 @@ export class Sudoku extends Component {
           </div>
           <div className="sudoku-button solve-board" onClick={this.solveBoard.bind(this)}>
             <h1>Solve</h1>
+          </div>
+          <div className="sudoku-button solve-step" onClick={this.singleSolutionRun.bind(this)}>
+            <h1>Step</h1>
           </div>
         </div>
       </div>
