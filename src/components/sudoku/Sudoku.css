@@ -4,7 +4,7 @@
   background-color:rgb(235, 235, 235);
   padding:20px;
   border-radius:30px;
-  width:900px;
+  /* width:900px; */
 }
 
 .sudoku-board {
@@ -41,7 +41,7 @@
   height: 17px;
   margin:1.5px;
   border-radius: 5px;
-  opacity:.4;
+  opacity:1;
   transition:.5s ease-in-out;
 }
 
@@ -50,16 +50,27 @@
   padding:5px;
 }
 
-.shuffle-board{
+.sudoku-button{
   padding:20px;
   border:none;
   border-radius: 10px;
   background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
 }
 .shuffle-board h1{
   font-size:40px;
   font-weight:bold;
   background: linear-gradient(to bottom right, rgb(188, 25, 238), rgb(7, 123, 255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
+.solve-board h1{
+  font-size:40px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(238, 25, 25), rgb(255, 238, 7));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-color:rgb(77, 77, 77);

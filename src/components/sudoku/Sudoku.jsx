@@ -14,6 +14,17 @@ const colors =[
   'rgb(251, 255, 38)',
   'rgb(38, 42, 255)'
 ]
+// const colors =[
+//   'rgb(57, 107, 67)',
+//   'rgb(77, 127, 87)',
+//   'rgb(97, 147, 107)',
+//   'rgb(117, 167, 127)',
+//   'rgb(127, 177, 137)',
+//   'rgb(137, 187, 147)',
+//   'rgb(147, 187, 150)',
+//   'rgb(157, 220, 154)',
+//   'rgb(172, 230, 174)',
+// ]
 
 function removeA(arr) {
   var what, a = arguments, L = a.length, ax;
@@ -88,22 +99,27 @@ export class Sudoku extends Component {
     let newBoard = createEmptyBoard();
     setupInitialPosition(newBoard);
 
-    
     let boardElements = updateElementsWithBoardStatus(newBoard)
-
-    this.setState ({board: newBoard,
+    this.setState ({
+      board: newBoard,
       boardElements});
   }
 
+  solveBoard() {
+
+  }
 
   render() {
     return (
       <div className="sudoku-container">
         {this.state.boardElements}
         <div className="sudoku-options">
-          <div className="button shuffle-board" onClick={this.shuffleBoard.bind(this)}>
+          <div className="sudoku-button shuffle-board" onClick={this.shuffleBoard.bind(this)}>
             <h1>Shuffle</h1>
-            </div>
+          </div>
+          <div className="sudoku-button solve-board">
+            <h1>Solve</h1>
+          </div>
         </div>
       </div>
     )

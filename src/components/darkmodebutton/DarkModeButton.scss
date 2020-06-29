@@ -1,0 +1,23 @@
+#darkmode-button{
+  position:fixed;
+  background-color:rgb(7, 161, 175);
+  bottom:50px;
+  left:50px;
+  width:55px;
+  height:30px;
+  border-radius: 40px;
+  border: 5px solid rgb(204, 204, 204);
+  cursor: pointer;
+  padding:0px;
+  overflow: hidden;
+}
+
+#darkmode-ball{
+  position: relative;
+  float: left;
+  width:30px;
+  height:30px;
+  border-radius: 20px;
+  background-color: rgb(136, 136, 136);
+  transition:.5s ease-in-out;
+}

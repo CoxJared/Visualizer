@@ -3,6 +3,7 @@ import SideBar from './SideBar';
 import GameOfLife from './gameoflife/GameOfLife';
 import Sorting from './sorting/Sorting';
 import Sudoku from './sudoku/Sudoku.jsx';
+import DarkModeButton from './darkmodebutton/DarkModeButton';
 
 const algorithms = {
   'game-of-life': <GameOfLife />,
@@ -32,6 +33,7 @@ export class MainPage extends Component {
         <div className="action-window">
           {this.state.algorithmDisplayed}
         </div>
+        <DarkModeButton />
       </div>
     )
   }
