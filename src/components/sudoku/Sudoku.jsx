@@ -63,8 +63,21 @@ function eliminateRowOptions(board, rowNum) {
   }
 }
 
-function checkBox(){
-
+function eliminateBoxOptions(board, box){
+  //function will update the board that is passed in
+  let rowOfBox = Math.floor(box / 3) * 3;
+  let columnOfBox = box % 3 * 3;
+  for(let column = 0; column < 3; column++) {
+    for(let row = 0; row < 3; row++) {
+      if (board[columnOfBox + column][rowOfBox + row].value !== null) {
+        for(let y = 0; y < 3; y++) {
+          for(let x = 0; x < 3; x++){
+            removeA(board[columnOfBox + y][rowOfBox + x].options, board[columnOfBox + column][rowOfBox + row].value)
+          }
+        }
+      }
+    }
+  }
 }
 
 function setupInitialPosition(board) {
@@ -95,7 +108,7 @@ function updateElementsWithBoardStatus(board) {
                     :
                     <div className={`sudoku-option`}/>
                     ))}
-                    
+
                 </div>
                 : <div className="sudoku-element"
                   style={{backgroundColor:colors[row.value - 1]}}/>   
@@ -142,16 +155,19 @@ export class Sudoku extends Component {
 
   singleSolutionRun() {
 
-
-    // eliminate from columns
+    //eliminate from columns
     for (let column = 0; column < 9; column++) {
       eliminatesColumnOptions(this.state.board, column);
     }
 
     // eliminate from column
     for (let row = 0; row < 9; row++) {
-      console.log()
       eliminateRowOptions(this.state.board,row);
+    }
+
+    //eliminate from boxes
+    for (let column = 0; column < 9; column++) {
+      eliminateBoxOptions(this.state.board, 5);
     }
 
     this.updateBoardElementsState();
