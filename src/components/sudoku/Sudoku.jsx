@@ -41,17 +41,30 @@ function createEmptyBoard() {
   return board;
 }
 
-function checkColumn(board, columnNum) {
+function eliminatesColumnOptions(board, columnNum) {
+  //function will update the board that is passed in
   for(let row = 0; row < 9; row++) {
     if(board[columnNum][row].value !== null) {
       for(let i = 0; i < 9; i++){
-        removeA(board[columnNum][i].options, board[columnNum][row].value)
-        console.log(board[columnNum][row].value)
-        console.log(board[columnNum][i])
+        removeA(board[columnNum][i].options, board[columnNum][row].value);
       }
     }
   }
-  return board;
+}
+
+function eliminateRowOptions(board, rowNum) {
+  //function will update the board that is passed in
+  for(let column = 0; column < 9; column++) {
+    if(board[column][rowNum].value !== null) {
+      for(let i = 0; i < 9; i++){
+        removeA(board[column][i].options, board[column][rowNum].value);
+      }
+    }
+  }
+}
+
+function checkBox(){
+
 }
 
 function setupInitialPosition(board) {
@@ -67,24 +80,29 @@ function updateElementsWithBoardStatus(board) {
   let options = [1,2,3,4,5,6,7,8,9]
   return (<div className="sudoku-board">
         {board.map(column => (
+
           <div className="sudoku-column">
             {column.map(row => (
+
+              //create elements, either solved values or available options
               row.value === null ? 
                 <div  className={`sudoku-element element-${column}-${row}`}>
                   {options.map(option => (
 
+                    //create divs for element options
                     row.options.includes(option) ?
                     <div className={`sudoku-option`} style={{backgroundColor:colors[option - 1]}}/>
                     :
                     <div className={`sudoku-option`}/>
-
-
                     ))}
+                    
                 </div>
                 : <div className="sudoku-element"
-                  style={{backgroundColor:colors[row.value - 1]}}/>    
+                  style={{backgroundColor:colors[row.value - 1]}}/>   
+
             ))}
           </div>
+
         ))}
       </div>)
   }
@@ -102,6 +120,14 @@ export class Sudoku extends Component {
     }
   }
 
+  updateBoardElementsState() {
+    let boardElements = updateElementsWithBoardStatus(this.state.board);
+    this.setState ({
+      boardElements
+    })
+    console.log(this.state.board);
+  }
+
   shuffleBoard() {
     //replace this with random board options
     let newBoard = createEmptyBoard();
@@ -114,16 +140,25 @@ export class Sudoku extends Component {
       console.log(newBoard);
   }
 
-  solveBoard() {
-      checkColumn(this.state.board, 2);
+  singleSolutionRun() {
 
-      let boardElements = updateElementsWithBoardStatus(this.state.board);
-      
-      this.setState ({
-        boardElements
-      })
-      console.log(this.state.board);
-    
+
+    // eliminate from columns
+    for (let column = 0; column < 9; column++) {
+      eliminatesColumnOptions(this.state.board, column);
+    }
+
+    // eliminate from column
+    for (let row = 0; row < 9; row++) {
+      console.log()
+      eliminateRowOptions(this.state.board,row);
+    }
+
+    this.updateBoardElementsState();
+  }
+
+  solveBoard() {
+      this.singleSolutionRun();
   }
 
   render() {
