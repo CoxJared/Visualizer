@@ -5,11 +5,11 @@ const SPEED_FACTOR = 300
 
 const colors =[
   'rgb(33, 218, 202)',
-  'rgb(38, 255, 92)',
+  'rgb(28, 235, 82)',
   'rgb(38, 168, 255)',
   'rgb(194, 38, 255)',
   'rgb(255, 125, 38)',
-  'rgb(255, 38, 121)',
+  'rgb(235, 100, 79)',
   'rgb(255, 38, 67)',
   'rgb(251, 255, 38)',
   'rgb(38, 42, 255)'
@@ -41,8 +41,6 @@ function createEmptyBoard() {
   return board;
 }
 
-
-
 function setupInitialPosition(board) {
   let values=[5,3,0,0,7,0,0,0,0,6,0,0,1,9,5,0,0,0,0,9,8,0,0,0,0,6,0,8,0,0,0,6,0,0,0,3,4,0,0,8,0,3,0,0,1,7,0,0,0,2,0,0,0,6,0,6,0,0,0,0,2,8,0,0,0,0,4,1,9,0,0,5,0,0,0,0,8,0,0,7,9]
   for(let i =0; i< 9; i++){
@@ -52,33 +50,49 @@ function setupInitialPosition(board) {
   }
 }
 
+function updateElementsWithBoardStatus(board) {
+  return (<div className="sudoku-board">
+        {board.map(column => (
+          <div className="sudoku-column">
+            {column.map(row => (
+              row.value === null ? 
+                <div  className={`sudoku-element element-${column}-${row}`}>
+                  {row.options.map(option => (
+                    <div className={`sudoku-option`} style={{backgroundColor:colors[option - 1]}}/>
+                    ))}
+                </div>
+                : <div className="sudoku-element"
+                  style={{backgroundColor:colors[row.value - 1]}}/>    
+            ))}
+          </div>
+        ))}
+      </div>)
+  }
+
 export class Sudoku extends Component {
   constructor() {
     super()
     let board = createEmptyBoard();
-    setupInitialPosition(board);
 
-    let initialBoardElements = 
-      <div className="sudoku-board">
-        {board.map(column => (
-          <div className="sudoku-column">
-            {column.map(row => (
-              <div className="sudoku-element">
-                {row.options.map(option => (
-                  <div className={`sudoku-option-${option}`} style={{backgroundColor:colors[option - 1]}}/>
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-
-    
+    let initialBoardElements = updateElementsWithBoardStatus(board)
+    console.log(board);
+      
     this.state = {
       board: board,
       boardElements: initialBoardElements
     }
+  }
+
+  shuffleBoard() {
+    //replace this with random board options
+    let newBoard = createEmptyBoard();
+    setupInitialPosition(newBoard);
+
+    
+    let boardElements = updateElementsWithBoardStatus(newBoard)
+
+    this.setState ({board: newBoard,
+      boardElements});
   }
 
 
@@ -87,8 +101,9 @@ export class Sudoku extends Component {
       <div className="sudoku-container">
         {this.state.boardElements}
         <div className="sudoku-options">
-          <button className="button shuffle-board">Shuffle</button>
-
+          <div className="button shuffle-board" onClick={this.shuffleBoard.bind(this)}>
+            <h1>Shuffle</h1>
+            </div>
         </div>
       </div>
     )
