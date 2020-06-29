@@ -18,7 +18,7 @@ export class DarkModeButton extends Component {
       document.getElementById('darkmode-ball').style.marginLeft = '0';
       } else {
         console.log(light)
-        document.getElementById('darkmode-ball').style.marginLeft = '25px';
+        document.getElementById('darkmode-ball').style.marginLeft = '26px';
       }
     } catch {}
     
@@ -28,7 +28,9 @@ export class DarkModeButton extends Component {
   render() {
     return (
       <div id="darkmode-button" onClick ={this.switch.bind(this)}>
-        <div id="darkmode-ball"></div>
+        <div id="darkmode-ball">
+          <div id="right-background"/>
+        </div>
       </div>
     )
   }
