@@ -1,5 +1,57 @@
 .sorting-container {
-  width:100%;
-  height:100%;
+  width:1000px;
+  height:700px;
   border:1px solid blue;
+  display: flex;
+}
+
+.sorting-bars-container{
+  width:800px;
+  height:500px;
+  margin-top:60px;
+  margin-left:50px;
+  border:1px solid red;
+  display: flex;
+  padding-bottom:0;
+  
+}
+
+.bar-container {
+  width:50px;
+  height:100%;
+  
+  margin:0 10px;
+  position: relative;
+}
+
+.bar-container div{
+  background-color: rgb(16, 145, 251);
+  width:100%;
+  height:300px;
+  position: absolute;
+  bottom:0;
+}
+
+.sorting-menu{
+  width:200px;
+  height:100%;
+}
+
+.bubble-sort-button{
+  padding:20px;
+  border:none;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bubble-sort-button h1{
+  font-size:30px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(238, 25, 25), rgb(7, 123, 255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
 }

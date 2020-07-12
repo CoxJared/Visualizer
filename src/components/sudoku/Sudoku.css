@@ -45,8 +45,21 @@
   transition:.5s ease-in-out;
 }
 
+
+.sudoku-visualizer-board{
+  border:1px solid red;
+  width:648px;
+  /* height:638px; */
+  position: absolute;
+  padding:10px;
+}
+
+
+
+
+
 .sudoku-options{
-  background-color:#eee;
+  background:#eee;
   padding:5px;
 }
 

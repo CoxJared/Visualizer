@@ -114,14 +114,14 @@ function updateElementsWithBoardStatus(board) {
 
                     //create divs for element options
                     row.options.includes(option) ?
-                    <div className={`sudoku-option`} style={{backgroundColor:colors[option - 1]}}/>
+                    <div className={`sudoku-option`} style={{background:colors[option - 1]}}/>
                     :
                     <div className={`sudoku-option`}/>
                     ))}
 
                 </div>
                 : <div className="sudoku-element"
-                  style={{backgroundColor:colors[row.value - 1]}}/>   
+                  style={{background:colors[row.value - 1]}}/>   
 
             ))}
           </div>
@@ -138,8 +138,9 @@ export class Sudoku extends Component {
     let initialBoardElements = updateElementsWithBoardStatus(board)
       
     this.state = {
-      board: board,
-      boardElements: initialBoardElements
+      board,
+      boardElements: initialBoardElements,
+      display:'colors'
     }
   }
 
@@ -192,6 +193,9 @@ export class Sudoku extends Component {
     return (
       <div className="sudoku-container">
         {this.state.boardElements}
+        {/* <div className="sudoku-visualizer-board">
+
+        </div> */}
         <div className="sudoku-options">
           <div className="sudoku-button shuffle-board" onClick={this.shuffleBoard.bind(this)}>
             <h1>Shuffle</h1>
