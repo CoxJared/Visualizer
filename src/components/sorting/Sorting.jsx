@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Sorting.css'
 
-const BASE_COLOR = 'rgb(16, 145, 251)';
+const BASE_COLOR = 'rgb(121, 168, 177)';
 
 export class Sorting extends Component {
   constructor(props) {
@@ -20,36 +20,57 @@ export class Sorting extends Component {
     this.setState({bars: newShuffledBars});
   }
 
-  bubbleSort() {
-    let newBars = this.state.bars
-    for (let i = 0; i < newBars.length - 1; i++) {
+  bubbleSort () {
+    let i = 0;
+    let length = this.state.bars.length
+    this.bubbleSortStep();
+    var solvingInterval = setInterval(() => {
+        this.bubbleSortStep(length - i - 1);
+        i++;
+        if (i === this.state.bars.length) {
+          clearInterval(solvingInterval);
+        }
+    },2000);
+  }
 
+  bubbleSortStep(maxStep) {
+    let newBars = this.state.bars
+    
+    let i = 0;
+    let sortStep = setInterval(() => {
 
       
-
-
       if(newBars[i] > newBars[i + 1]) {
         let tempBar = newBars[i];
         newBars[i] = newBars[i+1];
         newBars[i + 1] = tempBar;
-        this.highlightbar(newBars[i], 'rgb(255, 0, 0)')
+        this.highlightbar(newBars[i], 'rgb(209, 105, 43)')
+        // this.highlightbar(newBars[i + 1], 'rgb(213, 88, 60)')
+        this.setState({bars: newBars})
+      } else {
+        this.highlightbar(newBars[i], 'rgb(41, 77, 120)')
       }
-
-
-    }
-    console.log(newBars)
-    this.setState({bars: newBars})
+      
+      i++;
+      if (i === maxStep) {
+        clearInterval(sortStep);
+      }
+    }, 200);
   }
 
   highlightbar(i, color) {
+    
     setTimeout(function() {
+      try{
       console.log('hi')
       document.getElementById(`bar-${i}`).style.backgroundColor = color;
-    },0);
+    }catch{}},0);
     setTimeout(function() {
+      try{
       console.log('hi')
-      document.getElementById(`bar-${i}`).style.backgroundColor = 'rgb(0,255,0)';
-    },500);
+      document.getElementById(`bar-${i}`).style.backgroundColor = BASE_COLOR;
+      }catch{}},400);
+  
   }
 
   render() {
