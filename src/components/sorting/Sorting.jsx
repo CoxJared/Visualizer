@@ -44,8 +44,7 @@ export class Sorting extends Component {
         let tempBar = newBars[i];
         newBars[i] = newBars[i+1];
         newBars[i + 1] = tempBar;
-        this.highlightbar(newBars[i], 'rgb(209, 105, 43)')
-        // this.highlightbar(newBars[i + 1], 'rgb(213, 88, 60)')
+        this.highlightbar(newBars[i + 1], 'rgb(10, 65, 223)')
         this.setState({bars: newBars})
       } else {
         this.highlightbar(newBars[i], 'rgb(41, 77, 120)')
@@ -69,7 +68,7 @@ export class Sorting extends Component {
       try{
       console.log('hi')
       document.getElementById(`bar-${i}`).style.backgroundColor = BASE_COLOR;
-      }catch{}},400);
+      }catch{}},190);
   
   }
 
