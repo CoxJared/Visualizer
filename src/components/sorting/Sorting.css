@@ -15,11 +15,10 @@
 }
 
 .bar-container {
-  width:50px;
+  /* width:50px; */
   height:100%;
-  
-  margin:0 10px;
-  padding:0 10px;
+  margin:0 1px;
+  /* padding:0 10px; */
   position: relative;
 }
 
@@ -29,7 +28,7 @@
   height:300px;
   position: absolute;
   bottom:0;
-  transition:.2s ease-in-out;
+  transition:.1s ease-in-out;
   border-radius: 5px;
 }
 
@@ -69,6 +68,44 @@
 
 .shuffle-button h1{
   font-size:30px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(50, 238, 25), rgb(7, 123, 255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
+
+.add-button{
+  padding:5px 20px;
+  border:none;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-button h1{
+  font-size:40px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(50, 238, 25), rgb(7, 123, 255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
+
+.minus-button{
+  padding:5px 20px;
+  border:none;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.minus-button h1{
+  font-size:40px;
   font-weight:bold;
   background: linear-gradient(to bottom right, rgb(50, 238, 25), rgb(7, 123, 255));
   -webkit-background-clip: text;
