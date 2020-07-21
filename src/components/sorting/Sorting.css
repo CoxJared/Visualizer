@@ -55,6 +55,24 @@
   -webkit-text-fill-color: transparent;
   background-color:rgb(77, 77, 77);
 }
+.quick-sort-button{
+  padding:20px;
+  border:none;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.quick-sort-button h1{
+  font-size:30px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(25, 238, 227), rgb(255, 7, 102));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
 
 .shuffle-button{
   padding:20px;

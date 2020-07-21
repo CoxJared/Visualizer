@@ -3,24 +3,38 @@ import './Sorting.css'
 
 const BASE_COLOR = 'rgb(121, 168, 177)';
 const SOLVED_COLOR  = 'rgb(91, 196, 141)';
+const HIGHER_COLOR = 'rgb(10, 65, 223)'
+const LOWER_COLOR = 'rgb(10, 65, 123)';
 const MAX = 500;
+
+function randomColor(){
+  return `rgb(${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 200))})`;
+}
 
 export class Sorting extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bars: [400, 340, 170, 290, 320, 240, 60, 150, 20, 100, 200, 200, 100, 400, 500, 200, 300],
+      bars: [400, 340, 170, 290, 320, 240, 60, 150, 20, 100, 200, 200, 100, 400, 500, 200, 300,400, 340, 170, 290, 320, 240, 60, 150, 20, 100, 200, 200, 100, 400, 500, 200, 300],
       status: 'idle'
     }
   }
 
   randomize() {
     let newShuffledBars = this.state.bars;
-    for(let i = 0; i < newShuffledBars.length; i++) {
+
+    let i = 0;
+    let randomizeInterval = setInterval(() => {
       newShuffledBars[i] = Math.floor(Math.random() * MAX);
-    }
-    this.resetBarColor();
-    this.setState({bars: newShuffledBars});
+      this.highlightbar(i, randomColor(), 70);
+      this.setState({bars: newShuffledBars});
+
+      i++;
+      if (i === newShuffledBars.length){
+        clearInterval(randomizeInterval);
+      }
+
+    },20);
   }
 
   addBar() {
@@ -35,6 +49,13 @@ export class Sorting extends Component {
     bars.pop();
     this.setState({bars});
     this.resetBarColor();
+  }
+
+  killSorting() {
+    var noofTimeOuts = setInterval('');
+    for (var i = 0 ; i < noofTimeOuts ; i++) {
+      clearInterval(i);
+    }
   }
 
   bubbleSort () {
@@ -112,7 +133,59 @@ export class Sorting extends Component {
 
   }
 
-  highlightbar(i, color) {
+  quickSortStart() {
+    let arr = this.state.bars;
+    this.quickSort(arr);
+
+  }
+
+  quickSort(arr, left = 0, right = this.state.bars.length - 1) {
+    if(left >= right){
+      return;
+    }
+
+    let pivotIndex = Math.floor((left + right) / 2);
+    let pivot = arr[pivotIndex];
+
+    let sectionColor = randomColor();
+    for(let i = left; i <  right + 1; i++){
+      this.highlightbar(i, sectionColor, 400);
+    }
+    // this.highlightbar(pivotIndex, 'rgb(200, 200, 50)', 300);
+
+    setTimeout(() => {
+      let point = this.quickSortStep(arr, left, right, pivot);
+      this.setState({bars: arr});
+      setTimeout(() => {
+        this.quickSort(arr, left, point - 1);
+
+        this.quickSort(arr, point, right);
+      }, 600);
+    }, 200);
+
+  }
+
+  quickSortStep(arr, left, right, pivot) {
+    while (left <= right) {
+      while(arr[left] < pivot){
+        left++;
+      }
+      while(arr[right] > pivot){
+        right--;
+      }
+
+      if(left <= right){
+        let temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        left++;
+        right--;
+      }
+    }
+    return left;
+  }
+
+  highlightbar(i, color, timeout = 190) {
     setTimeout(function() {
       try{
       document.getElementById(`bar-${i}`).style.backgroundColor = color;
@@ -120,7 +193,7 @@ export class Sorting extends Component {
     setTimeout(function() {
       try{
       document.getElementById(`bar-${i}`).style.backgroundColor = BASE_COLOR;
-      }catch{}},190);
+      }catch{}},timeout);
   }
 
   resetBarColor(){
@@ -160,6 +233,16 @@ export class Sorting extends Component {
               Shuffle
             </h1>
           </div>
+          <div className="add-button" onClick={this.addBar.bind(this)}> 
+            <h1>
+              + 
+            </h1>
+          </div>
+          <div className="minus-button" onClick={this.removeBar.bind(this)}> 
+            <h1>
+              - 
+            </h1>
+          </div>
           <div className="bubble-sort-button" onClick={this.bubbleSort.bind(this)}> 
             <h1>
               Bubble Sort
@@ -170,14 +253,14 @@ export class Sorting extends Component {
               Insertion Sort
             </h1>
           </div>
-          <div className="add-button" onClick={this.addBar.bind(this)}> 
+          <div className="quick-sort-button" onClick={this.quickSortStart.bind(this)}> 
             <h1>
-              + 
+              Quick Sort
             </h1>
           </div>
-          <div className="minus-button" onClick={this.removeBar.bind(this)}> 
+          <div className="quick-sort-button" onClick={this.killSorting.bind(this)}> 
             <h1>
-              - 
+              X
             </h1>
           </div>
         </div>
