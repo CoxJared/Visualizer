@@ -37,7 +37,17 @@
   height:100%;
 }
 
-.bubble-sort-button{
+.sorting-button {
+  padding:20px;
+  border:none;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin:10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.kill-button {
   padding:20px;
   border:none;
   border-radius: 10px;
@@ -55,16 +65,6 @@
   -webkit-text-fill-color: transparent;
   background-color:rgb(77, 77, 77);
 }
-.quick-sort-button{
-  padding:20px;
-  border:none;
-  border-radius: 10px;
-  background: rgb(255, 255, 255);
-  margin:10px;
-  text-align: center;
-  cursor: pointer;
-}
-
 .quick-sort-button h1{
   font-size:30px;
   font-weight:bold;
@@ -93,15 +93,27 @@
   background-color:rgb(77, 77, 77);
 }
 
-.add-button{
+.add-minus-container{
+  border:none;
+  border-radius: 10px;
+  margin:0px 5px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  /* border:1px solid red; */
+}
+
+.add-minus-container div{
   padding:5px 20px;
+  width:50%;
   border:none;
   border-radius: 10px;
   background: rgb(255, 255, 255);
-  margin:10px;
+  margin:5px 5px;
   text-align: center;
   cursor: pointer;
 }
+
 
 .add-button h1{
   font-size:40px;
@@ -112,15 +124,6 @@
   background-color:rgb(77, 77, 77);
 }
 
-.minus-button{
-  padding:5px 20px;
-  border:none;
-  border-radius: 10px;
-  background: rgb(255, 255, 255);
-  margin:10px;
-  text-align: center;
-  cursor: pointer;
-}
 
 .minus-button h1{
   font-size:40px;

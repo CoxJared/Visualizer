@@ -52,10 +52,12 @@ export class Sorting extends Component {
   }
 
   killSorting() {
-    var noofTimeOuts = setInterval('');
-    for (var i = 0 ; i < noofTimeOuts ; i++) {
+    var noofTimeOuts = setInterval(() => {console.log('')},0);
+    for (var i = 0 ; i <= noofTimeOuts ; i++) {
       clearInterval(i);
+      console.log(i);
     }
+    this.resetBarColor();
   }
 
   bubbleSort () {
@@ -233,32 +235,34 @@ export class Sorting extends Component {
               Shuffle
             </h1>
           </div>
-          <div className="add-button" onClick={this.addBar.bind(this)}> 
-            <h1>
-              + 
-            </h1>
+          <div className="add-minus-container">
+            <div className="add-button" onClick={this.addBar.bind(this)}> 
+              <h1>
+                + 
+              </h1>
+            </div>
+            <div className="minus-button" onClick={this.removeBar.bind(this)}> 
+              <h1>
+                - 
+              </h1>
+            </div>
           </div>
-          <div className="minus-button" onClick={this.removeBar.bind(this)}> 
-            <h1>
-              - 
-            </h1>
-          </div>
-          <div className="bubble-sort-button" onClick={this.bubbleSort.bind(this)}> 
+          <div className="sorting-button bubble-sort-button" onClick={this.bubbleSort.bind(this)}> 
             <h1>
               Bubble Sort
             </h1>
           </div>
-          <div className="bubble-sort-button" onClick={this.insertionSort.bind(this)}> 
+          <div className="sorting-button bubble-sort-button" onClick={this.insertionSort.bind(this)}> 
             <h1>
               Insertion Sort
             </h1>
           </div>
-          <div className="quick-sort-button" onClick={this.quickSortStart.bind(this)}> 
+          <div className="sorting-button quick-sort-button" onClick={this.quickSortStart.bind(this)}> 
             <h1>
               Quick Sort
             </h1>
           </div>
-          <div className="quick-sort-button" onClick={this.killSorting.bind(this)}> 
+          <div className="kill-button" onClick={this.killSorting.bind(this)}> 
             <h1>
               X
             </h1>
