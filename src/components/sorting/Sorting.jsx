@@ -8,19 +8,25 @@ const LOWER_COLOR = 'rgb(10, 65, 123)';
 const MAX = 500;
 
 function randomColor(){
-  return `rgb(${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 200))})`;
+  return `rgb(${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 200))},${(Math.floor(Math.random() * 255))})`;
 }
 
 export class Sorting extends Component {
   constructor(props) {
     super(props)
+    let startingBars = []
+    for(let i = 0; i < 100; i++) {
+      startingBars.push(Math.floor(Math.random() * MAX));
+    }
+
     this.state = {
-      bars: [400, 340, 170, 290, 320, 240, 60, 150, 20, 100, 200, 200, 100, 400, 500, 200, 300,400, 340, 170, 290, 320, 240, 60, 150, 20, 100, 200, 200, 100, 400, 500, 200, 300],
+      bars: startingBars,
       status: 'idle'
     }
   }
 
   randomize() {
+    this.killSorting();
     let newShuffledBars = this.state.bars;
 
     let i = 0;
@@ -61,11 +67,7 @@ export class Sorting extends Component {
   }
 
   bubbleSort () {
-    if(this.state.status !== 'idle') {
-      return;
-    } else {
-      this.setState({status: 'sorting'});
-    }
+    this.killSorting();
 
     let i = 0;
     let sortUntilIndex = this.state.bars.length;
@@ -76,10 +78,10 @@ export class Sorting extends Component {
         let tempBar = newBars[i];
         newBars[i] = newBars[i+1];
         newBars[i + 1] = tempBar;
-        this.highlightbar(i, 'rgb(10, 65, 223)')
+        this.highlightbar(i, 'rgb(10, 65, 223)', 50)
         this.setState({bars: newBars})
       } else {
-        this.highlightbar(i, 'rgb(41, 77, 120)')
+        this.highlightbar(i, 'rgb(41, 77, 120)', 50)
       }
 
       i++;
@@ -94,15 +96,11 @@ export class Sorting extends Component {
         }, 200);
         clearInterval(solvingInterval);
       }
-    }, 50);
+    }, 10);
   }
 
   insertionSort() {
-    if(this.state.status !== 'idle') {
-      return;
-    } else {
-      this.setState({status: 'sorting'});
-    }
+    this.killSorting();
 
     let newBars = this.state.bars;
     let sortUntilIndex = 1;
@@ -136,9 +134,10 @@ export class Sorting extends Component {
   }
 
   quickSortStart() {
+    this.killSorting();
+
     let arr = this.state.bars;
     this.quickSort(arr);
-
   }
 
   quickSort(arr, left = 0, right = this.state.bars.length - 1) {
@@ -185,6 +184,56 @@ export class Sorting extends Component {
       }
     }
     return left;
+  }
+
+  mergeSortStart() {
+    let arr = this.state.bars;
+    let temp = [...arr];
+    console.log(temp);
+    this.mergeSort(arr, temp, 0, arr.length - 1);
+    this.setState({bars: arr});
+    console.log('done');
+  }
+
+  mergeSort(arr, temp, leftStart, rightEnd) {
+    if (leftStart >= rightEnd) {
+      return;
+    }
+    let middle = Math.floor((leftStart + rightEnd) / 2);
+    this.mergeSort(arr, temp, leftStart, middle);
+    this.mergeSort(arr, temp, middle + 1, rightEnd);
+    console.log(leftStart);
+    this.mergeHalves(arr, temp, leftStart, rightEnd);
+  }
+
+  mergeHalves(arr, temp, leftStart, rightEnd) {
+    let leftEnd = Math.floor((rightEnd + leftStart) / 2);
+    let rightStart = leftEnd + 1;
+    let size = rightEnd - leftStart + 1;
+
+    let left = leftStart;
+    let right = rightStart;
+    let index = leftStart;
+
+    while(left <= leftEnd && right <= rightEnd) {
+      if(arr[left] <= arr[right]) {
+        temp[index] = arr[left];
+        left++;
+      } else {
+        temp[index] = arr[right];
+        right++; 
+      }
+      index++;
+    }
+    for (let x = 0; x < leftEnd - left + 1; x++) {
+      temp[index + x] = arr[left + x];
+    }
+    for (let x = 0; x < rightEnd - right + 1; x++) {
+      temp[index + x] = arr[right + x];
+    } 
+    for (let x = 0; x < size; x++) {
+      temp[leftStart  + x] = arr[leftStart + x];
+    } 
   }
 
   highlightbar(i, color, timeout = 190) {
@@ -252,7 +301,7 @@ export class Sorting extends Component {
               Bubble Sort
             </h1>
           </div>
-          <div className="sorting-button bubble-sort-button" onClick={this.insertionSort.bind(this)}> 
+          <div className="sorting-button insertion-sort-button" onClick={this.insertionSort.bind(this)}> 
             <h1>
               Insertion Sort
             </h1>
@@ -262,9 +311,14 @@ export class Sorting extends Component {
               Quick Sort
             </h1>
           </div>
+          <div className="sorting-button merge-sort-button" onClick={this.mergeSortStart.bind(this)}> 
+            <h1>
+              Merge Sort
+            </h1>
+          </div>
           <div className="kill-button" onClick={this.killSorting.bind(this)}> 
             <h1>
-              X
+              Kill Sorting
             </h1>
           </div>
         </div>

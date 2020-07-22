@@ -1,5 +1,5 @@
 .sorting-container {
-  width:1000px;
+  width:1100px;
   height:700px;
   /* border:1px solid blue; */
   display: flex;
@@ -33,12 +33,12 @@
 }
 
 .sorting-menu{
-  width:200px;
+  width:250px;
   height:100%;
 }
 
 .sorting-button {
-  padding:20px;
+  padding:20px 5px;
   border:none;
   border-radius: 10px;
   background: rgb(255, 255, 255);
@@ -57,10 +57,28 @@
   cursor: pointer;
 }
 
+.kill-button h1{
+  font-size:30px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(144, 14, 14), rgb(116, 11, 11));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
+
+
 .bubble-sort-button h1{
   font-size:30px;
   font-weight:bold;
-  background: linear-gradient(to bottom right, rgb(238, 25, 25), rgb(7, 123, 255));
+  background: linear-gradient(to bottom right, rgb(251, 85, 85), rgb(255, 106, 7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color:rgb(77, 77, 77);
+}
+.insertion-sort-button h1{
+  font-size:30px;
+  font-weight:bold;
+  background: linear-gradient(to bottom right, rgb(25, 107, 238), rgb(7, 120, 124));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-color:rgb(77, 77, 77);
@@ -68,7 +86,7 @@
 .quick-sort-button h1{
   font-size:30px;
   font-weight:bold;
-  background: linear-gradient(to bottom right, rgb(25, 238, 227), rgb(255, 7, 102));
+  background: linear-gradient(to bottom right, rgb(6, 110, 41), rgb(42, 131, 46));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-color:rgb(77, 77, 77);
